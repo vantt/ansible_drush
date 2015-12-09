@@ -1,0 +1,22 @@
+---
+
+- name: Check PHP is already installed
+  shell: php --version
+  register: php_exist
+  ignore_errors: yes
+
+- name: Fail if PHP was not properly installed
+  fail: msg="PHP was not properly installed. Please have a working php-cli."
+  when: "'not found' in php_exist.stderr"
+
+- name: Install Drush
+  get_url: url=http://files.drush.org/drush.phar dest=/usr/local/bin/drush mode=555 
+  tags: drush
+
+- name: Create /etc/drush
+  file: path=/etc/drush state=directory
+  tags: drush
+
+- name: Create drush aliases settings
+  copy: src=drush_aliases.php dest=/etc/drush/anfa.aliases.drushrc.php
+  tags: drush

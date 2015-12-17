@@ -10,7 +10,7 @@
   when: "'not found' in php_exist.stderr"
 
 - name: Install Drush
-  get_url: url=http://files.drush.org/drush.phar dest=/usr/local/bin/drush mode=555 
+  get_url: url=http://files.drush.org/drush.phar dest=/usr/local/sbin/drush mode=555 
   tags: drush
 
 - name: Create /etc/drush
